@@ -21,10 +21,10 @@ export default class DatabaseService {
             port: 3306,
             username: "root",
             password: "root",
-            database: "mysql",
-            entities: [
-                Post,
-            ]
+            database: "mysql"
+            // entities: [
+            //     Post,
+            // ]
         }).then(() => {
             DatabaseService.isConnected = true;
             DatabaseService.logger.log('info', 'database connected successfully');

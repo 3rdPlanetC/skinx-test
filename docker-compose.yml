@@ -5,15 +5,9 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./:/server
+      - ./:/usr/src/app
     depends_on:
       - mysql
-    links:
-      - mysql
-    # extra_hosts:
-    #   - "host.docker.internal:host-gateway"
-    # networks:
-    #   - test_network
   mysql:
     image: mysql:5.7
     restart: always
@@ -23,10 +17,5 @@ services:
       - db-data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
-    # networks:
-    #   - test_network
 volumes:
   db-data: {}
-# networks:
-#   test_network:
-#     external: true
