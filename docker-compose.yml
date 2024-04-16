@@ -1,0 +1,32 @@
+version: "3"
+services:
+  node:
+    build: .
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/server
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    # extra_hosts:
+    #   - "host.docker.internal:host-gateway"
+    # networks:
+    #   - test_network
+  mysql:
+    image: mysql:5.7
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    # networks:
+    #   - test_network
+volumes:
+  db-data: {}
+# networks:
+#   test_network:
+#     external: true
