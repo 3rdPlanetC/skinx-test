@@ -4,16 +4,20 @@
   "description": "",
   "main": "./dist/index.js",
   "scripts": {
-    "build": "tsc",
-    "start": "ts-node ./dist/index.js",
+    "build": "yarn tsc",
+    "start": "yarn ts-node ./dist/index.js",
     "dev": "nodemon ./src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migration:run": "npx typeorm-ts-node-commonjs migration:run -d ./src/migration.config.ts",
+    "migration:generate": "npx typeorm-ts-node-commonjs migration:generate ./src/migrations/create-post-table -d ./src/migration.config.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.12.7",
+    "bcryptjs": "^2.4.3",
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",

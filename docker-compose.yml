@@ -3,7 +3,7 @@ services:
   node:
     build: .
     ports:
-      - 3000:3000
+      - 8080:8080
     volumes:
       - ./:/usr/src/app
     depends_on:
@@ -15,6 +15,7 @@ services:
       - 3306:3306
     volumes:
       - db-data:/var/lib/mysql
+      - "./scripts/create_database.sql:/docker-entrypoint-initdb.d/create_database.sql"
     environment:
       MYSQL_ROOT_PASSWORD: root
 volumes:

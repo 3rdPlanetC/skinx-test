@@ -1,0 +1,1 @@
+CREATE DATABASE skinx_test;

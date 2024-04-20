@@ -35,20 +35,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const dotenv_1 = __importDefault(require("dotenv"));
 const config_1 = __importDefault(require("./config"));
 const http = __importStar(require("http"));
-const DatabaseService_1 = __importDefault(require("./services/DatabaseService"));
+const DatabaseService_1 = __importDefault(require("./app/services/DatabaseService"));
 const logger_1 = __importDefault(require("./lib/logger"));
 const app_1 = __importDefault(require("./app"));
 const logger = new logger_1.default();
 const port = config_1.default.server.port || 8080;
-dotenv_1.default.config();
 DatabaseService_1.default.getConnection().then(() => {
     const server = http.createServer(app_1.default).listen(port);
     server.on('listening', () => __awaiter(void 0, void 0, void 0, function* () {
-        logger.log('info', `Sample app listening on ${JSON.stringify(server.address())}`);
+        logger.log('info', `skinx_test app listening on ${JSON.stringify(server.address())}`);
     }));
-    logger.log('info', `Sample app listening on ${JSON.stringify(server.address())}`);
 });
-//# sourceMappingURL=index.js.map
