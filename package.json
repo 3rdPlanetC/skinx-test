@@ -4,26 +4,39 @@
   "description": "",
   "main": "./dist/index.js",
   "scripts": {
-    "build": "yarn tsc",
-    "start": "yarn ts-node ./dist/index.js",
+    "build": "npx tsc",
+    "start": "npx ts-node ./dist/index.js",
     "dev": "nodemon ./src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "migration:run": "npx typeorm-ts-node-commonjs migration:run -d ./src/migration.config.ts",
-    "migration:generate": "npx typeorm-ts-node-commonjs migration:generate ./src/migrations/create-post-table -d ./src/migration.config.ts"
+    "prisma:generate": "prisma generate",
+    "prisma:reset": "prisma migrate reset",
+    "prisma:migrate": "prisma migrate dev --skip-seed --name init",
+    "prisma:seed": "prisma db seed",
+    "prisma:full": "yarn prisma:generate && yarn prisma:migrate && yarn prisma:seed"
+  },
+  "prisma": {
+    "seed": "ts-node --transpile-only ./src/prisma/seed.ts",
+    "schema": "./src/prisma/schema.prisma"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^5.12.1",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.12.7",
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-winston": "^4.2.0",
+    "jwt-simple": "^0.5.6",
     "mysql2": "^3.9.4",
     "nodemon": "^3.1.0",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
+    "prisma": "^5.12.1",
     "reflect-metadata": "^0.2.2",
     "ts-node": "^10.9.2",
     "tsc": "^2.0.4",
@@ -32,7 +45,6 @@
     "winston": "^3.13.0"
   },
   "devDependencies": {
-    "@types/express": "^4.17.21",
-    "eslint-plugin-typeorm-typescript": "^0.2.4"
+    "@types/express": "^4.17.21"
   }
 }

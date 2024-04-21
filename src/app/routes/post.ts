@@ -1,12 +1,10 @@
-import { Router, Response, Request } from 'express'
-import PostController from '../controller/PostController'
+import { Router } from 'express'
+import { PostController } from '../controllers/PostController'
 
 const router = Router()
 
 router.get("/", PostController.getAll)
-
-router.get("/:id", (_: Request, res: Response) => {
-    res.send("get a post")
-})
+router.get("/:id", PostController.getById)
+router.get('/search/query', PostController.getBySearch)
 
 export default router

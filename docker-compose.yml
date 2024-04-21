@@ -1,22 +1,27 @@
 version: "3"
 services:
-  node:
+  # frontend-react:
+  #   build: .
+  #   ports:
+  #     - 3000:3000
+  mysql:
+    image: mysql:8.0-oracle
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./scripts/create_database.sql:/docker-entrypoint-initdb.d/create_database.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+  backend:
     build: .
     ports:
       - 8080:8080
     volumes:
       - ./:/usr/src/app
     depends_on:
-      - mysql
-  mysql:
-    image: mysql:5.7
-    restart: always
-    ports:
-      - 3306:3306
-    volumes:
-      - db-data:/var/lib/mysql
-      - "./scripts/create_database.sql:/docker-entrypoint-initdb.d/create_database.sql"
-    environment:
-      MYSQL_ROOT_PASSWORD: root
+      mysql:
+        condition: service_started
 volumes:
   db-data: {}

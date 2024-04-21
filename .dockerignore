@@ -6,4 +6,5 @@ docker-compose*
 .gitignore
 README.md
 .vscode
-dist
+yarn-lock
+yarn-error.log

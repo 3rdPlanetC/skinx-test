@@ -28,7 +28,7 @@ export default class Logger {
         }
     }
 
-    public log(level?: string, ...msg: any[]) {
+    public log(level: string, ...msg: any[]) {
         this.logger.log(level, msg)
     }
 
