@@ -1,0 +1,55 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model Post {
+  id        Int        @id @default(autoincrement())
+  title     String
+  content   String     @db.Text
+  postedAt  DateTime
+  postedBy  String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now())
+  tags      PostTags[]
+
+  @@fulltext([title])
+  @@map("post")
+}
+
+model PostTags {
+  postId    Int      @map("post_id")
+  tagId     Int      @map("tag_id")
+  post      Post     @relation(fields: [postId], references: [id])
+  tag       Tag      @relation(fields: [tagId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@id([postId, tagId])
+  @@index([tagId], map: "post_tags_tag_id_fkey")
+  @@map("post_tags")
+}
+
+model Tag {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique
+  posts     PostTags[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now())
+
+  @@fulltext([name])
+  @@map("tag")
+}

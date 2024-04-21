@@ -1,9 +1,6 @@
 version: "3"
 services:
-  # frontend-react:
-  #   build: .
-  #   ports:
-  #     - 3000:3000
+  # db
   mysql:
     image: mysql:8.0-oracle
     restart: always
@@ -11,17 +8,36 @@ services:
       - 3306:3306
     volumes:
       - db-data:/var/lib/mysql
-      - ./scripts/create_database.sql:/docker-entrypoint-initdb.d/create_database.sql
+      - ./backend/scripts/create_database.sql:/docker-entrypoint-initdb.d/create_database.sql
     environment:
       MYSQL_ROOT_PASSWORD: root
+  # backend
   backend:
-    build: .
+    build: ./backend
     ports:
       - 8080:8080
     volumes:
-      - ./:/usr/src/app
+      - ./backend:/usr/src/app
     depends_on:
       mysql:
         condition: service_started
+  # frontend
+  frontend:
+    build: ./frontend
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+  # nginx
+  nginx:
+    image: nginx:1.21.0-alpine
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    links:
+      - frontend
+    volumes:
+      - ./frontend/nginx.conf:/etc/nginx/conf.d/default.conf
 volumes:
   db-data: {}

@@ -1,0 +1,11 @@
+node_modules
+Dockerfile*
+.dockerignore
+docker-compose*
+.git
+.gitignore
+README.md
+.vscode
+yarn-lock
+yarn-error.log
+dist
