@@ -4,7 +4,7 @@
   "description": "",
   "main": "./dist/index.js",
   "scripts": {
-    "build": "rm -rf ./dist && npx tsc",
+    "build": "npx tsc",
     "start": "npx ts-node ./dist/index.js",
     "dev": "nodemon ./src/index.ts",
     "test": "jest --coverage",

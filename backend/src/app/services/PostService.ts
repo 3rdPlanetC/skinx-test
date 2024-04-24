@@ -31,7 +31,6 @@ export class PostService {
     }
     public async getBySearch(query: { tag?: string, title?: string, content?: string }) {
         try {
-            console.log("query : ", query)
             // let queryClause = {}
             // const tag = query.tag?.trim()
             const content = query.content?.trim()
@@ -51,7 +50,6 @@ export class PostService {
                     tags: true
                 },
             })
-            console.log("posts.length : ", posts.length)
             this.logger.log('info', ['posts from PostService:getByTagSearch() -> ', posts])
             return posts
         } catch (error) {

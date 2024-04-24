@@ -1,6 +1,7 @@
 FROM node:20.12-alpine
 
-RUN apk update && apk add bash
+RUN apk update && apk add --no-cache bash
+RUN apk update && apk add --no-cache coreutils
 
 WORKDIR /usr/src/app
 
@@ -16,8 +17,17 @@ ENV DATABASE_URL="mysql://root:root@mysql:3306/skinx_test"
 
 COPY . .
 
+# CMD ["/bin/bash", "./scripts/backend-run.sh"]
+# RUN chmod +x /wait-for-it.sh
+
 RUN yarn install
 
 RUN yarn build
 
-CMD ["./wait-for-it.sh", "mysql:3306", "--", "./scripts/backend-run.sh"]
+# RUN ./scripts/backend-run.sh
+
+# RUN yarn prisma:full
+
+# CMD ["sh","./scripts/backend-run.sh"]
+
+# CMD ["./scripts/wait-for-it.sh", "mysql:3306", "--", "yarn", "start"]

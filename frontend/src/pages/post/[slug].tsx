@@ -20,7 +20,6 @@ export const getServerSideProps = (async (context) => {
     let post
     if (resPost.status === 200) {
         const postData = await resPost.json()
-        console.log("postData : ", postData)
         post = postData
     } else {
         post = {}

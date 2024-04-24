@@ -109,5 +109,7 @@
   "exclude": [
     "**/*.spec.ts",
     "**/*.test.ts",
+    "jest.config.js",
+    "dist/**/*"
   ]
 }

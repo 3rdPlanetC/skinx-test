@@ -11,7 +11,6 @@ export default async function POST(
         const cookies = new Cookies(nextReq, nextRes)
         const access_token = cookies.get('access_token')
         const pathname = nextReq.url?.split('/api/post')[1]
-        console.log("pathname : ", pathname)
         const url = `${API_URL}${API_V1}/post${pathname}`
         const res = await axios({
             url: url,
